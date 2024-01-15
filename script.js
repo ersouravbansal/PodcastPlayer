@@ -24,6 +24,7 @@ const changeAudio = () => {
   audio.src = selectedValue;
   stopAudio();
   progressBar.style.width = `${0}%`;
+  updateSpeed()
 };
 
 const downloadAudio = () => {
