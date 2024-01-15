@@ -1,4 +1,4 @@
-const audio = new Audio('https://ndtvod.pc.cdn.bitgravity.com/23372/mp3/2023-04/25careduringdiarrhea_eng_88856.mp3');
+const audio = new Audio('');
 const playPauseBtn = document.getElementById('playPauseBtn');
 const stopBtn = document.getElementById('stopBtn');
 const backwardBtn = document.getElementById('backwardBtn');
