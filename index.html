@@ -7,57 +7,66 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div id="podcastList">
-      <label for="audioSelect">Select Podcast:</label>
-      <select id="audioSelect" onchange="changeAudio()">
-        <option selected >Select Audio</option>
-        <option
-          value="https://ndtvod.pc.cdn.bitgravity.com/23372/mp3/2023-04/25careduringdiarrhea_eng_88856.mp3"
-        >
-          Audio 1
-        </option>
-        <option value="https://api.spreaker.com/v2/episodes/58302701/play.mp3">
-          Audio 2
-        </option>
-      </select>
-    </div>
-    <div id="audioPlayer">
-      <button id="backwardBtn">-10s</button>
-      <button id="playPauseBtn">Play</button>
-      <button id="stopBtn">Stop</button>
-      <button id="forwardBtn">+10s</button>
-      <div id="seekBar">
-        <div id="progressBar"></div>
-        <div id="timeContainer">
-            <span id="currentTime">0:00</span> / <span id="totalDuration">0:00</span>
-          </div>
-      </div>
-      <div id="volumeContainer">
-        <label for="volumeSlider">Volume:</label>
-        <input
-          type="range"
-          id="volumeSlider"
-          min="0"
-          max="1"
-          step="0.01"
-          value="1"
-        />
-      </div>
-      <div id="speedContainer">
-        <label for="speedSelect">Speed:</label>
-        <select id="speedSelect">
-          <option value="0.25">0.25x</option>
-          <option value="0.5">0.5x</option>
-          <option value="0.75">0.75x</option>
-          <option value="1" selected>Normal</option>
-          <option value="1.25">1.25x</option>
-          <option value="1.5">1.5x</option>
-          <option value="1.75">1.75x</option>
-          <option value="2">2x</option>
+    <div class="container">
+      <div id="podcastList">
+        <label for="audioSelect">Select Podcast:</label>
+        <select id="audioSelect" onchange="changeAudio()">
+          <option selected>Select Audio</option>
+          <option
+            value="https://ndtvod.pc.cdn.bitgravity.com/23372/mp3/2023-04/25careduringdiarrhea_eng_88856.mp3"
+          >
+            Audio 1
+          </option>
+          <option
+            value="https://api.spreaker.com/v2/episodes/58302701/play.mp3"
+          >
+            Audio 2
+          </option>
         </select>
       </div>
-      <div id="downloadContainer">
-        <button id="downloadBtn" onclick="downloadAudio()">Download</button>
+      <div id="audioPlayer">
+        <div id="seekBar">
+          <div id="progressBar"></div>
+          <div id="timeContainer">
+            <span id="currentTime">0:00</span> /
+            <span id="totalDuration">0:00</span>
+          </div>
+        </div>
+        <div class="controls">
+          <button id="backwardBtn">-10s</button>
+          <button id="playPauseBtn">Play</button>
+          <button id="stopBtn">Stop</button>
+          <button id="forwardBtn">+10s</button>
+          <div id="volumeContainer">
+            <label for="volumeSlider">Vol</label>
+            <input
+              type="range"
+              id="volumeSlider"
+              min="0"
+              max="1"
+              step="0.01"
+              value="1"
+            />
+          </div>
+          <div id="speedContainer">
+            <label for="speedSelect">Speed:</label>
+            <select id="speedSelect">
+              <option value="0.25">0.25x</option>
+              <option value="0.5">0.5x</option>
+              <option value="0.75">0.75x</option>
+              <option value="1" selected>Normal</option>
+              <option value="1.25">1.25x</option>
+              <option value="1.5">1.5x</option>
+              <option value="1.75">1.75x</option>
+              <option value="2">2x</option>
+            </select>
+          </div>
+          <div id="downloadContainer">
+            <button id="downloadBtn" onclick="downloadAudio()">
+              Download
+            </button>
+          </div>
+        </div>
       </div>
     </div>
     <script src="script.js"></script>
