@@ -10,10 +10,9 @@ const speedSelect = document.getElementById("speedSelect");
 const currentTimeElement = document.getElementById("currentTime");
 const totalDurationElement = document.getElementById("totalDuration");
 const togglePlayPause = () => {
-  if (audio.paused) {
+  if (audio.paused || audio.ended) {
     audio.play();
     playPauseBtn.textContent = "Pause";
-    updateProgressBar();
   } else {
     audio.pause();
     playPauseBtn.textContent = "Play";
