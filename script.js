@@ -22,6 +22,7 @@ function changeAudio() {
     const selectedValue = document.getElementById('audioSelect').value;
     audio.src = selectedValue;
     stopAudio(); 
+    progressBar.style.width = `${0}%`;
   }
 function togglePlayPause() {
   if (audio.paused) {
