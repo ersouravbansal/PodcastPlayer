@@ -34,6 +34,31 @@ function togglePlayPause() {
     playPauseBtn.textContent = 'Play';
   }
 }
+function downloadAudio() {
+  const selectedValue = document.getElementById('audioSelect').value;
+
+  // Fetch the audio file
+  fetch(selectedValue)
+    .then(response => response.blob())
+    .then(blob => {
+      // Create a Blob from the audio data
+      const url = window.URL.createObjectURL(blob);
+
+      // Create a temporary link element
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `audio_${Date.now()}.mp3`; // You can customize the file name
+
+      // Append the link to the document, trigger a click, and remove the link
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      // Release the Blob URL
+      window.URL.revokeObjectURL(url);
+    })
+    .catch(error => console.error('Error fetching audio:', error));
+}
 
 function stopAudio() {
   audio.pause();
