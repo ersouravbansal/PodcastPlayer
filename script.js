@@ -54,10 +54,11 @@ function updateProgressBar(event) {
   const ratio = clickedPosition / seekBar.clientWidth;
   const newPosition = ratio * audio.duration;
 
-  audio.currentTime = newPosition;
-  progressBar.style.width = `${ratio * 100}%`;
+  if (!isNaN(newPosition)) {
+    audio.currentTime = newPosition;
+    progressBar.style.width = `${ratio * 100}%`;
+  }
 }
-
 function updateVolume() {
   audio.volume = volumeSlider.value;
 }
