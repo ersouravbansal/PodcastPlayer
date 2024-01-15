@@ -39,7 +39,7 @@ body {
 
 #timeContainer {
   position: absolute;
-  top: 15px;
+  top: 10px;
   right: 0;
   display: flex;
   align-items: center;
@@ -63,7 +63,7 @@ body {
   flex-wrap: wrap; 
   position: relative;
   padding-bottom: 10px;
-  top: 15px;
+  top: 5px;
 }
 
 .controls button,
