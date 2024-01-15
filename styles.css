@@ -6,7 +6,7 @@ body {
 .container {
   max-width: 1000px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 5px;
 }
 
 #audioPlayer {
@@ -15,7 +15,7 @@ body {
   align-items: center;
   background: linear-gradient(45deg, #3498db, #2ecc71);
   border-radius: 10px;
-  padding: 10px;
+  padding: 5px;
 }
 
 #seekBar {

@@ -37,6 +37,12 @@
           <button id="playPauseBtn">Play</button>
           <button id="stopBtn">Stop</button>
           <button id="forwardBtn">+10s</button>
+          <div id="downloadContainer">
+            <button id="downloadBtn" onclick="downloadAudio()">
+              Download
+            </button>
+          </div>
+
           <div id="volumeContainer">
             <label for="volumeSlider">Vol</label>
             <input
@@ -60,11 +66,6 @@
               <option value="1.75">1.75x</option>
               <option value="2">2x</option>
             </select>
-          </div>
-          <div id="downloadContainer">
-            <button id="downloadBtn" onclick="downloadAudio()">
-              Download
-            </button>
           </div>
         </div>
       </div>
