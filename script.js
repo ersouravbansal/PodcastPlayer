@@ -1,15 +1,17 @@
 const audio = new Audio("");
 const playPauseBtn = document.getElementById("playPauseBtn");
+playPauseBtn.classList.add("fas", "fa-play", "fa-pause");
 const stopBtn = document.getElementById("stopBtn");
 const backwardBtn = document.getElementById("backwardBtn");
 const forwardBtn = document.getElementById("forwardBtn");
 const progressBar = document.getElementById("progressBar");
 const seekBar = document.getElementById("seekBar");
-const seekThumb = document.getElementById("seekThumb"); // New line
+const seekThumb = document.getElementById("seekThumb");
 const volumeSlider = document.getElementById("volumeSlider");
 const speedSelect = document.getElementById("speedSelect");
 const currentTimeElement = document.getElementById("currentTime");
 const totalDurationElement = document.getElementById("totalDuration");
+const muteBtn = document.getElementById("muteBtn");
 let isDragging = false;
 
 const startDrag = (event) => {
@@ -30,12 +32,45 @@ const stopDrag = () => {
 const togglePlayPause = () => {
   if (audio.paused || audio.ended) {
     audio.play();
-    playPauseBtn.textContent = "Pause";
+    playPauseBtn.classList.remove("fa-play");
+    playPauseBtn.classList.add("fa-pause");
   } else {
     audio.pause();
-    playPauseBtn.textContent = "Play";
+    playPauseBtn.classList.remove("fa-pause");
+    playPauseBtn.classList.add("fa-play");
   }
 };
+const updateVolume = () => {
+  const volumeValue = volumeSlider.value;
+  audio.volume = volumeValue;
+
+  const volSlide = document.querySelector('.vol-slide input[type="range"]');
+  const percentage = (volumeValue * 100).toFixed(2);
+
+  volSlide.style.background = `linear-gradient(to right, red 0%, red ${percentage}%, #ccc ${percentage}%, #ccc 100%)`;
+
+  if (volumeValue === "0") {
+    muteBtn.classList.remove("fa-volume-up");
+    muteBtn.classList.add("fa-volume-mute");
+  } else {
+    muteBtn.classList.remove("fa-volume-mute");
+    muteBtn.classList.add("fa-volume-up");
+  }
+};
+
+const toggleMute = () => {
+  if (audio.volume === 0) {
+    audio.volume = volumeSlider.value;
+    muteBtn.classList.remove("fa-volume-mute");
+    muteBtn.classList.add("fa-volume-up");
+   
+  } else {
+    audio.volume = 0;
+    muteBtn.classList.remove("fa-volume-up");
+    muteBtn.classList.add("fa-volume-mute");    
+  }
+};
+
 const changeAudio = () => {
   const selectedValue = document.getElementById("audioSelect").value;
   audio.src = selectedValue;
@@ -47,24 +82,19 @@ const changeAudio = () => {
 const downloadAudio = () => {
   const selectedValue = document.getElementById("audioSelect").value;
 
-  // Fetch the audio file
   fetch(selectedValue)
     .then((response) => response.blob())
     .then((blob) => {
-      // Create a Blob from the audio data
       const url = window.URL.createObjectURL(blob);
 
-      // Create a temporary link element
       const link = document.createElement("a");
       link.href = url;
-      link.download = `audio_${Date.now()}.mp3`; // You can customize the file name
+      link.download = `audio_${Date.now()}.mp3`;
 
-      // Append the link to the document, trigger a click, and remove the link
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
 
-      // Release the Blob URL
       window.URL.revokeObjectURL(url);
     })
     .catch((error) => console.error("Error fetching audio:", error));
@@ -73,7 +103,8 @@ const downloadAudio = () => {
 const stopAudio = () => {
   audio.pause();
   audio.currentTime = 0;
-  playPauseBtn.textContent = "Play";
+  playPauseBtn.classList.remove("fa-pause");
+  playPauseBtn.classList.add("fa-play");
   updateProgressBar();
 };
 
@@ -98,9 +129,6 @@ const updateProgressBar = (event) => {
   }
 };
 
-const updateVolume = () => {
-  audio.volume = volumeSlider.value;
-};
 
 const updateSpeed = () => {
   audio.playbackRate = parseFloat(speedSelect.value);
@@ -127,6 +155,8 @@ seekThumb.addEventListener("mousedown", startDrag);
 document.addEventListener("mousemove", duringDrag);
 document.addEventListener("mouseup", stopDrag);
 
+muteBtn.addEventListener("click", toggleMute);
+
 seekThumb.addEventListener("touchstart", (event) => {
   startDrag(event.touches[0]);
 });
@@ -143,14 +173,14 @@ audio.addEventListener("timeupdate", () => {
   currentTimeElement.textContent = formatTime(audio.currentTime);
   totalDurationElement.textContent = formatTime(audio.duration);
 
-  // Update seek thumb position
   const thumbPosition = ratio * seekBar.clientWidth;
   seekThumb.style.left = `${thumbPosition}px`;
 });
 
 audio.addEventListener("ended", () => {
-  playPauseBtn.textContent = "Play";
+  playPauseBtn.classList.remove("fa-pause");
+  playPauseBtn.classList.add("fa-play");
   progressBar.style.width = "0";
   currentTimeElement.textContent = "0:00";
-  seekThumb.style.left = "0px"; // Reset seek thumb position
+  seekThumb.style.left = "0px";
 });
