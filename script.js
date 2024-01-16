@@ -28,8 +28,24 @@ const duringDrag = (event) => {
 const stopDrag = () => {
   isDragging = false;
 };
+const openModal = () => {
+  const modal = document.getElementById("alertModal");
+  modal.style.display = "block";
+};
+
+const closeModal = () => {
+  const modal = document.getElementById("alertModal");
+  modal.style.display = "none";
+};
 
 const togglePlayPause = () => {
+  const selectedValue = document.getElementById("audioSelect").value;
+
+  if (selectedValue === "Select Audio") {
+    openModal();
+    return;
+  }
+
   if (audio.paused || audio.ended) {
     audio.play();
     playPauseBtn.classList.remove("fa-play");
@@ -75,6 +91,7 @@ const changeAudio = () => {
   const selectedValue = document.getElementById("audioSelect").value;
   audio.src = selectedValue;
   stopAudio();
+  seekThumb.style.left = "0px";
   progressBar.style.width = `${0}%`;
   updateSpeed();
 };

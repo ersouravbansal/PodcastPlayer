@@ -167,11 +167,39 @@ body {
   width: 49px;
 }
 
+.modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  color: #fff;
+  text-align: center;
+  z-index: 1;
+}
+
+.modal-content {
+  position: relative;
+}
+
+.close {
+  position: absolute;
+  top: -25px;
+  right: -10px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
 @media only screen and (max-width: 600px) {
   #audioPlayer {
     padding: 5px;
   }
-
+  .modal {
+    width: 80%;
+  }
   .controls select {
     width: 50px;
     margin-right: 5px;
