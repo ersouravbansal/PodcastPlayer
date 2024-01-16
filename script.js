@@ -98,6 +98,11 @@ const changeAudio = () => {
 
 const downloadAudio = () => {
   const selectedValue = document.getElementById("audioSelect").value;
+  if (selectedValue === "Select Audio") {
+    openModal();
+    return;
+  }
+
 
   fetch(selectedValue)
     .then((response) => response.blob())
