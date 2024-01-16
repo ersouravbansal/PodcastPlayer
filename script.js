@@ -5,10 +5,28 @@ const backwardBtn = document.getElementById("backwardBtn");
 const forwardBtn = document.getElementById("forwardBtn");
 const progressBar = document.getElementById("progressBar");
 const seekBar = document.getElementById("seekBar");
+const seekThumb = document.getElementById("seekThumb"); // New line
 const volumeSlider = document.getElementById("volumeSlider");
 const speedSelect = document.getElementById("speedSelect");
 const currentTimeElement = document.getElementById("currentTime");
 const totalDurationElement = document.getElementById("totalDuration");
+let isDragging = false;
+
+const startDrag = (event) => {
+  isDragging = true;
+  updateProgressBar(event);
+};
+
+const duringDrag = (event) => {
+  if (isDragging) {
+    updateProgressBar(event);
+  }
+};
+
+const stopDrag = () => {
+  isDragging = false;
+};
+
 const togglePlayPause = () => {
   if (audio.paused || audio.ended) {
     audio.play();
@@ -23,7 +41,7 @@ const changeAudio = () => {
   audio.src = selectedValue;
   stopAudio();
   progressBar.style.width = `${0}%`;
-  updateSpeed()
+  updateSpeed();
 };
 
 const downloadAudio = () => {
@@ -79,6 +97,7 @@ const updateProgressBar = (event) => {
     progressBar.style.width = `${ratio * 100}%`;
   }
 };
+
 const updateVolume = () => {
   audio.volume = volumeSlider.value;
 };
@@ -86,11 +105,13 @@ const updateVolume = () => {
 const updateSpeed = () => {
   audio.playbackRate = parseFloat(speedSelect.value);
 };
+
 const formatTime = (seconds) => {
   const minutes = Math.floor(seconds / 60);
   const remainingSeconds = Math.floor(seconds % 60);
   return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
 };
+
 audio.addEventListener("loadedmetadata", () => {
   totalDurationElement.textContent = formatTime(audio.duration);
 });
@@ -102,15 +123,34 @@ forwardBtn.addEventListener("click", forward);
 seekBar.addEventListener("click", updateProgressBar);
 volumeSlider.addEventListener("input", updateVolume);
 speedSelect.addEventListener("change", updateSpeed);
+seekThumb.addEventListener("mousedown", startDrag);
+document.addEventListener("mousemove", duringDrag);
+document.addEventListener("mouseup", stopDrag);
+
+seekThumb.addEventListener("touchstart", (event) => {
+  startDrag(event.touches[0]);
+});
+
+document.addEventListener("touchmove", (event) => {
+  duringDrag(event.touches[0]);
+});
+
+document.addEventListener("touchend", stopDrag);
+
 audio.addEventListener("timeupdate", () => {
   const ratio = audio.currentTime / audio.duration;
   progressBar.style.width = `${ratio * 100}%`;
   currentTimeElement.textContent = formatTime(audio.currentTime);
   totalDurationElement.textContent = formatTime(audio.duration);
+
+  // Update seek thumb position
+  const thumbPosition = ratio * seekBar.clientWidth;
+  seekThumb.style.left = `${thumbPosition}px`;
 });
 
 audio.addEventListener("ended", () => {
   playPauseBtn.textContent = "Play";
   progressBar.style.width = "0";
   currentTimeElement.textContent = "0:00";
+  seekThumb.style.left = "0px"; // Reset seek thumb position
 });

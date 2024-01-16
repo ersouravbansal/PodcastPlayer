@@ -27,6 +27,7 @@
       <div id="audioPlayer">
         <div id="seekBar">
           <div id="progressBar"></div>
+          <div id="seekThumb"></div>
           <div id="timeContainer">
             <span id="currentTime">0:00</span> /
             <span id="totalDuration">0:00</span>
@@ -45,6 +46,7 @@
 
           <div id="volumeContainer">
             <label for="volumeSlider">Vol</label>
+            <div class="vol-slide">
             <input
               type="range"
               id="volumeSlider"
@@ -53,6 +55,7 @@
               step="0.01"
               value="1"
             />
+          </div>
           </div>
           <div id="speedContainer">
             <label for="speedSelect">Speed:</label>
