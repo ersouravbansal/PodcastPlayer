@@ -75,16 +75,23 @@ const updateVolume = () => {
 };
 
 const toggleMute = () => {
+  const volSlide = document.querySelector('.vol-slide input[type="range"]');
+
   if (audio.volume === 0) {
-    audio.volume = volumeSlider.value;
+    audio.volume = 1;
+    const percentage = (audio.volume * 100).toFixed(2);
     muteBtn.classList.remove("fa-volume-mute");
     muteBtn.classList.add("fa-volume-up");
-   
+    volSlide.style.background = `linear-gradient(to right, red 0%, red ${percentage}%, #ccc ${percentage}%, #ccc 100%)`;
   } else {
     audio.volume = 0;
+    const percentage = (audio.volume * 100).toFixed(2);
     muteBtn.classList.remove("fa-volume-up");
-    muteBtn.classList.add("fa-volume-mute");    
+    muteBtn.classList.add("fa-volume-mute");
+    volSlide.style.background = `linear-gradient(to right, #ccc 0%, #ccc ${percentage}%, #ccc ${percentage}%, #ccc 100%)`;
   }
+
+  volumeSlider.value = audio.volume;
 };
 
 const changeAudio = () => {
