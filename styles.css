@@ -126,7 +126,7 @@ body {
 .vol-slide input[type="range"] {
   width: 100%;
   appearance: none;
-  height: 5px;
+  height: 2px;
   background-color: red;
   border-radius: 5px;
   outline: none;
